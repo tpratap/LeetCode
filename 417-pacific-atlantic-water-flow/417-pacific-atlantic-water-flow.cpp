@@ -43,16 +43,16 @@ public:
         int n = h[0].size();
 
         vis[i][j] = true;
-        //up
+        //up wala iske through jaa sakta h ya nhi
         if (i-1 >= 0 && vis[i-1][j] != true && h[i-1][j] >= h[i][j])
             dfs(h, vis, i-1, j);
-        //down
+        //down wala iske through jaa sakta h ya nhi
         if (i+1 < m && vis[i+1][j] != true && h[i+1][j] >= h[i][j])
             dfs(h, vis, i+1, j);
-        //left
+        //left wala iske through jaa sakta h ya nhi
         if (j-1 >= 0 && vis[i][j-1] != true && h[i][j-1] >= h[i][j])
             dfs(h, vis, i, j-1);
-        //right
+        //right wala iske through jaa sakta h ya nhi
         if (j+1 < n && vis[i][j+1] != true && h[i][j+1] >= h[i][j])
             dfs(h, vis, i, j+1);
 
