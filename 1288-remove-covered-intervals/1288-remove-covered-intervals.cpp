@@ -16,14 +16,11 @@ public:
 
         int n = intervals.size();
         int count = n;
-        for(int i = 0; i < n; i++) {
-            cout<<intervals[i][0]<<" "<<intervals[i][1]<<"\n";
-        }
+        
         last = intervals[0];
         for(int i = 1; i < n; i++) {
             if(last[0] <= intervals[i][0] && last[1] >= intervals[i][1]) {
                 count--;
-                //last = last;
             }
             else {
                 last = intervals[i];
