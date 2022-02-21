@@ -1,59 +1,59 @@
-class Solution {
-    struct TrieNode {
-        TrieNode *children[26];
-        string word;
-
-        TrieNode() : word("") {
-            for (int i = 0; i < 26; i++) {
-                children[i] = nullptr;
-            }
-        }
-    };
-
+class Trie{
 public:
-    vector<string> findWords(vector<vector<char>> &board, vector<string> &words) {
-        TrieNode *root = buildTrie(words);
-        vector<string> result;
-        for (int i = 0; i < board.size(); i++) {
-            for (int j = 0; j < board[0].size(); j++) {
-                dfs(board, i, j, root, result);
-            }
-        }
-        return result;
+    Trie* children[26];
+    bool endOfWord;
+    
+    Trie():endOfWord(false){
+        for(int i = 0; i < 26; ++i)
+            children[i] = nullptr;
     }
-
-    /** Inserts a word into the trie. */
-    TrieNode *buildTrie(vector<string> &words) {
-        TrieNode *root = new TrieNode();
-        for (int j = 0; j < words.size(); j++) {
-            string word = words[j];
-            TrieNode *curr = root;
-            for (int i = 0; i < word.length(); i++) {
-                char c = word[i] - 'a';
-                if (curr->children[c] == nullptr) {
-                    curr->children[c] = new TrieNode();
-                }
-                curr = curr->children[c];
-            }
-            curr->word = word;
-        }
-        return root;
+    
+    ~Trie(){
+        for(int i = 0; i < 26; ++i)
+            if(children[i]) delete children[i];
     }
+    
+    void insert(string word){
+        Trie* curr = this;
+        for(char c: word){
+            if(!curr->children[c-'a']) curr->children[c - 'a'] = new Trie();
+            curr = curr->children[c-'a'];
+        }
+        curr->endOfWord = true;
+    }
+};
 
-    void dfs(vector<vector<char>> &board, int i, int j, TrieNode *p, vector<string> &result) {
+class Solution {
+    void dfs(vector<vector<char>>& board, int i, int j, Trie* trie, unordered_set<string>& result, string s){
         char c = board[i][j];
-        if (c == '#' || !p->children[c - 'a']) return;
-        p = p->children[c - 'a'];
-        if (p->word.size() > 0) {
-            result.push_back(p->word);
-            p->word = "";
+        if(c == '$') return;
+        board[i][j] = '$';
+        Trie* t = trie->children[c - 'a'];
+        if(t){
+            string ss = s + c;
+            if(t->endOfWord) result.insert(ss);
+            if(i < board.size()-1) dfs(board, i+1, j, t, result, ss);
+            if(i > 0) dfs(board, i-1, j, t, result, ss);
+            if(j < board[0].size()-1) dfs(board, i, j+1, t, result, ss);
+            if(j > 0) dfs(board, i, j-1, t, result, ss);
         }
-
-        board[i][j] = '#';
-        if (i > 0) dfs(board, i - 1, j, p, result);
-        if (j > 0) dfs(board, i, j - 1, p, result);
-        if (i < board.size() - 1) dfs(board, i + 1, j, p, result);
-        if (j < board[0].size() - 1) dfs(board, i, j + 1, p, result);
         board[i][j] = c;
+    }
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        if(words.size() == 0) return {};
+        Trie trie;
+        for(string w: words){
+            trie.insert(w);
+        }
+        
+        unordered_set<string> result_s;
+        for(int i = 0; i < board.size(); ++i){
+            for(int j = 0; j < board[0].size(); ++j){
+                dfs(board, i, j, &trie, result_s, "");
+            }
+        }
+        vector<string> result(result_s.begin(), result_s.end());
+        return result;
     }
 };
