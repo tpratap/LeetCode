@@ -17,17 +17,15 @@ public:
             return;
         }
         
+        curr.push_back(root->val);
+        
         if(root->left == NULL && root->right == NULL) {
-            curr.push_back(root->val); 
             ans.push_back(curr);
             return;
         }
-        curr.push_back(root->val);
+        
         inorder(root->left,curr);
-        //curr.pop_back();
-        //curr.push_back(root->val);
         inorder(root->right,curr);
-        //curr.pop_back();
     }
     
     vector<string> binaryTreePaths(TreeNode* root) {
