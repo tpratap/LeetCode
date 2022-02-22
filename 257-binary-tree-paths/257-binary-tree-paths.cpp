@@ -32,13 +32,13 @@ public:
         vector<int> curr;
         vector<string> res;
         inorder(root, curr);
-        for(auto &x: ans) {
+        for(int i = 0; i < ans.size(); i++) {
+            int j;
             string temp = "";
-            for(auto &y: x) {
-                temp += to_string(y) + "->";
+            for(j = 0; j < ans[i].size()-1; j++) {
+                temp += to_string(ans[i][j]) + "->";
             }
-            temp.pop_back();
-            temp.pop_back();
+            temp += to_string(ans[i][j]);
             res.push_back(temp);
         }
         return res;
