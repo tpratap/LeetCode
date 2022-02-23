@@ -22,37 +22,26 @@ public:
 class Solution {
 public:
     Node* cloneGraph(Node* node) {
-        if(node == NULL)
+        if (!node) {
             return NULL;
-        Node* rootNode = new Node(node->val);
-        //Queue<old, new>
-        queue<pair<Node*, Node*>> q;
-        //Map<old, new>
-        unordered_map<Node*, Node*> created;
-        //Visited OldNode for creating its neighbours
-        unordered_set<Node*> visited;
-        q.push({node, rootNode});
-        created[node] = rootNode;
-        visited.insert(node);
-        while(!q.empty()) {
-            Node* oldNode = q.front().first;
-            Node* newNode = q.front().second;
-            // cout<<"Removed Node "<<newNode->val<<": ";
-            q.pop();
-            for(auto oldNodeNeigh: oldNode->neighbors) {
-                if(created.find(oldNodeNeigh) == created.end()) {
-                    Node* newNodeNeigh = new Node(oldNodeNeigh->val);
-                    created[oldNodeNeigh] = newNodeNeigh;
-                }
-                // cout<<oldNodeNeigh->val<<" -> ";
-                newNode->neighbors.push_back(created[oldNodeNeigh]);
-                if(visited.find(oldNodeNeigh) == visited.end()) {
-                    visited.insert(oldNodeNeigh);
-                    q.push({oldNodeNeigh, created[oldNodeNeigh]});
-                }
-            }
-            // cout<<"\n";
         }
-        return rootNode;
+        Node* copy = new Node(node -> val, {});
+        copies[node] = copy;
+        queue<Node*> todo;
+        todo.push(node);
+        while (!todo.empty()) {
+            Node* cur = todo.front();
+            todo.pop();
+            for (Node* neighbor : cur -> neighbors) {
+                if (copies.find(neighbor) == copies.end()) {
+                    copies[neighbor] = new Node(neighbor -> val, {});
+                    todo.push(neighbor);
+                }
+                copies[cur] -> neighbors.push_back(copies[neighbor]);
+            }
+        }
+        return copy;
     }
+private:
+    unordered_map<Node*, Node*> copies;
 };
