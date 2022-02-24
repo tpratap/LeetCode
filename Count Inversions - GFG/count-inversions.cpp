@@ -44,51 +44,8 @@ class Solution{
         return inv_count;
     }
     
-
-
-
-// /* This funt merges two sorted arrays
-// and returns inversion count in the arrays.*/
-// long long merge(long long arr[], long long temp[], int left, int mid,
-// 		int right)
-// {
-// 	int i, j, k;
-// 	long long inv_count = 0;
-
-// 	i = left; /* i is index for left subarray*/
-// 	j = mid; /* j is index for right subarray*/
-// 	k = left; /* k is index for resultant merged subarray*/
-// 	while ((i <= mid - 1) && (j <= right)) {
-// 		if (arr[i] <= arr[j]) {
-// 			temp[k++] = arr[i++];
-// 		}
-// 		else {
-// 			temp[k++] = arr[j++];
-
-// 			/* this is tricky -- see above
-// 			explanation/diagram for merge()*/
-// 			inv_count = inv_count + (mid - i);
-// 		}
-// 	}
-
-// 	/* Copy the remaining elements of left subarray
-// (if there are any) to temp*/
-// 	while (i <= mid - 1)
-// 		temp[k++] = arr[i++];
-
-// 	/* Copy the remaining elements of right subarray
-// 	(if there are any) to temp*/
-// 	while (j <= right)
-// 		temp[k++] = arr[j++];
-
-// 	/*Copy back the merged elements to original array*/
-// 	for (i = left; i <= right; i++)
-// 		arr[i] = temp[i];
-
-// 	return inv_count;
-// }
    
-long long int _mergeSort(long long arr[], long long temp[], int low, int high) {
+    long long int _mergeSort(long long arr[], long long temp[], int low, int high) {
         long long inv_count = 0;
         if(low < high) {
         int mid = (low + high)/2;
