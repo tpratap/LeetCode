@@ -24,7 +24,7 @@ public:
         
         while(!Q.empty()){
             int n = Q.size();
-            for(int i = 0; i < n; ++i){
+            for(int i = 0; i < n; ++i){ //Process all the nodes at a given level
                 vector<string> path = Q.front(); // running path 
                 Q.pop();
                 vector<string> neighbors = findNeighbors(path.back(), word_list);
@@ -40,7 +40,7 @@ public:
                 }
             }
             if(reached_end) break;
-            for(auto it = visited.begin(); it != visited.end(); ++it)
+            for(auto it = visited.begin(); it != visited.end(); ++it) //Remove all visied nodes, to remove cycle
                 word_list.erase(*it);
             visited.clear();
         }
