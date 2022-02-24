@@ -42,24 +42,29 @@ public:
     {
         int n = str.length();
         int dp[n][n];
-        
+        bool isPal[n][n];
         for(int i = 0; i < n; i++) {
             dp[i][i] = 0;
+            isPal[i][i] = true;
         }
         
         for(int gap = 1; gap < n; gap++) {
             for(int i = 0; i+gap < n; i++) {
                 int j = i + gap;
-                if(isPalindrome(str, i, j))
+                if((str[i] == str[j]) && (isPal[i+1][j-1] || gap == 1)) {
                     dp[i][j] = 0;
+                    isPal[i][j] = true;
+                }
                 else {
                     dp[i][j] = INT_MAX;
+                    isPal[i][j] = false;
                     for(int k = i; k < j; k++) {
                         dp[i][j] = min(dp[i][j], dp[i][k] + dp[k+1][j] + 1);
                     }
                 }
             }
         }
+       
         // memset(dp, -1, sizeof(dp));
         // return palpart(str,0,n-1);
         return dp[0][n-1];
