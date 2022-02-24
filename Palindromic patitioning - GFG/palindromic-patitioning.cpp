@@ -41,7 +41,7 @@ int dp[501][501];
     {
         int n = str.length();
         memset(dp, -1, sizeof(dp));
-        palpart(str,0,n-1);
+        return palpart(str,0,n-1);
     }
 };
 
