@@ -9,7 +9,7 @@ using namespace std;
 
 class Solution{
 public:
-int dp[501][501];
+int dp[101][101];
     int MCM(int arr[], int i, int j) {
         if(i+1 == j)
             return dp[i][j] = 0;
