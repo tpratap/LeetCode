@@ -1,6 +1,6 @@
 class Solution {
 public:
-    string longestPalindrome(string s) {
+    string longestPalindrome(string &s) {
         int n = s.length();
         
         vector<vector<bool>> isPal(n, vector<bool> (n, false));
