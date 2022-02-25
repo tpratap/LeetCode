@@ -35,6 +35,8 @@ public:
     int minCut(string &s) {
         int n = s.length();
         int dp[n];
+ /* In the above approach, we can calculate the minimum cut while finding all palindromic substring. If we find all palindromic substring 1st and then we calculate minimum cut, time complexity will reduce to O(n*n).  */
+        
         vector<vector<bool>> isPal(n,vector<bool>(n, false));
         
         for(int i = 0; i < n; i++) {
