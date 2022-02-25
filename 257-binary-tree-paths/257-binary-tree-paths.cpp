@@ -11,36 +11,32 @@
  */
 class Solution {
 public:
-    vector<vector<int>> ans;
-    void inorder(TreeNode* root, vector<int> curr) {
-        if(root == NULL) {
+    vector<string> ans;
+    void generate(TreeNode* root, string curr) {
+        if(root == NULL)
             return;
-        }
         
-        curr.push_back(root->val);
+        curr += to_string(root->val) + "->";
         
         if(root->left == NULL && root->right == NULL) {
+            curr.pop_back();
+            curr.pop_back();
             ans.push_back(curr);
+            //curr = "";
             return;
         }
         
-        inorder(root->left,curr);
-        inorder(root->right,curr);
+        
+        generate(root->left, curr);
+        generate(root->right, curr);
     }
-    
     vector<string> binaryTreePaths(TreeNode* root) {
-        vector<int> curr;
-        vector<string> res;
-        inorder(root, curr);
-        for(int i = 0; i < ans.size(); i++) {
-            int j;
-            string temp = "";
-            for(j = 0; j < ans[i].size()-1; j++) {
-                temp += to_string(ans[i][j]) + "->";
-            }
-            temp += to_string(ans[i][j]);
-            res.push_back(temp);
-        }
-        return res;
+        if(root == NULL)
+            return {};
+        
+        string curr;
+        generate(root, curr);
+        
+        return ans;
     }
 };
