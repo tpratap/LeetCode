@@ -8,8 +8,10 @@ class Solution {
     }
 public:
     long long minimumTime(vector<int>& time, int totalTrips) {
+        
         long long low = 0, high = 1e14;
         long long ans = high;
+        low = *min_element(time.begin(), time.end());
         while(low <= high) {
             long long mid = (low + high) >> 1;
             if(tripsTaken(time, mid) >= totalTrips) {
