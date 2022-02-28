@@ -13,7 +13,6 @@ public:
         if(dp[i][j] != -1)
             return dp[i][j];
         
-        
         int ans = 0;
         
         for(int k = 0; k < 4; k++) {
@@ -30,15 +29,16 @@ public:
     int longestIncreasingPath(vector<vector<int>>& matrix) {
         m = matrix.size();
         n = matrix[0].size();
+        
         int ans = 0;
         
         dp.assign(m, vector<int>(n, -1));
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < n; j++) {
-               // vector<vector<bool>> visited(m, vector<bool>(n, false));
                 ans = max(ans, 1 + dfs(matrix, i, j));
             }
         }
+        
         return ans;
     }
 };
