@@ -1,16 +1,11 @@
 class Solution {
 public:
     int findCenter(vector<vector<int>>& edges) {
-        unordered_map<int, int> outdegree;
-        for(int i = 0; i < edges.size(); i++) {
-            outdegree[edges[i][0]]++;
-            outdegree[edges[i][1]]++;
-        }
-        int n = outdegree.size();
-        for(auto &it: outdegree) {
-            if(it.second == n-1)
-                return it.first;
-        }
-        return -1;
+        if(edges[0][0] == edges[1][0])
+            return edges[0][0];
+        else if(edges[0][0] == edges[1][1])
+            return edges[0][0];
+        else
+            return edges[0][1];
     }
 };
