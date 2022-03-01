@@ -20,7 +20,12 @@ public:
             }
         }
 
-        
+        /*
+        a|bcdd|a
+        0- i-1    j
+        0-i, i+1-j-1, j - n-1
+    
+        */
         for(int i = 1; i < n-1; ++i) {
             for(int j = i; j < n-1; ++j) {
                 if(isPal[0][i-1] && isPal[i][j] && isPal[j+1][n-1]) {
