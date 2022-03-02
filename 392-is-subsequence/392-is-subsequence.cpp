@@ -1,12 +1,11 @@
 class Solution {
 public:
-    bool recur(string s, string t, int m, int n, vector<vector<bool>>& dp) {
-        if(m == 0)
-            return dp[m][n] = true;
-        if(n == 0)
-            return dp[m][n] = false;
+    bool recur(string &s, string &t, int m, int n, vector<vector<bool>>& dp) {
         if(m > n)
             return dp[m][n] = false;
+        
+        if(m == 0 || n == 0)
+            return dp[m][n] = true;
         
         if(dp[m][n] != false)
             return true;
