@@ -1,26 +1,18 @@
 class Solution {
 public:
-    int minJumps(vector<int>& nums, int idx, vector<int>& dp) {
-        if(idx == nums.size()-1)
-            return 0;
-        
-        if(idx > nums.size()-1)
-            return INT_MAX;
-        
-        if(dp[idx] != INT_MAX)
-            return dp[idx];
-        
-        int ans = INT_MAX;
-        for(int jump = 1; jump <= nums[idx]; ++jump) {
-            int ret = minJumps(nums, idx + jump, dp);
-            if(ret != INT_MAX)
-            ans = min(ans, 1 + ret);
-        }
-        return dp[idx] = ans;
-    }
-    
     int jump(vector<int>& nums) {
-        vector<int> dp(nums.size()+1, INT_MAX);
-        return minJumps(nums, 0, dp);    
+        int n = nums.size();
+        int maxJump = 0;
+        int jumps = 0;
+        int prevmaxJump = 0;
+        for(int i = 0; i < n; ++i) {
+            if(prevmaxJump < i) {
+                jumps++;
+                prevmaxJump = maxJump;
+            }
+            //cout<<i<<" "<<jumps<<"\n";
+            maxJump = max(maxJump, i+nums[i]);
+        }
+        return jumps;
     }
 };
