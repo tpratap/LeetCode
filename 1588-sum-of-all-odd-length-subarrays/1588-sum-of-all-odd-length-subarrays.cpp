@@ -8,16 +8,11 @@ public:
             for(int i = 0; i+L < n; ++i) {
                 int j = i+L;
                 currsum = 0;
-                // if(L%2 == 0) {
-                    for(int k = i; k <= j; ++k) {
-                        // cout<<arr[k]<<" ";
-                        currsum += arr[k];
-                    }
-                // }
+                for(int k = i; k <= j; ++k) {
+                    currsum += arr[k];
+                }
                 sum += currsum;
-                // cout<<"\n";
             }
-            //cout<<"\n";
         }
         return sum;
     }
