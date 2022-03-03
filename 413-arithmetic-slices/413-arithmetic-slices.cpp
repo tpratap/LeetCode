@@ -1,35 +1,28 @@
 class Solution {
 public:
-    /*
-    By Observartion,
-    AP Length     | No. of Combinations
-    3 [1,2,3]     | 1 (0+1) prev+1
-    4 [1,2,3,4]   | 3 (1+2) prev+2
-    5 [1,2,3,4,5] | 6 (3+3) prev+3
-    To the previoius value we are adding 1,then 2,then 3 as length of AP is increasing.
-    In the code k represents the value to be added.
-    */
-    int numberOfArithmeticSlices(vector<int>& A) {
-        int n=A.size();
-        if(n<3) return 0;
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        if(nums.size() < 3)
+            return 0;
         
-        int dif=A[1]-A[0],k=1;  // k : value to be added as length of AP is increasing
-        int cnt=0,tcnt=0; // cnt : count of single AP combinations
-        for(int i=2;i<n;++i){
-            
-            int d =A[i]-A[i-1];
-            
-            if(d==dif){
-                cnt+=k;
+        int cdiff = nums[1] - nums[0];
+        int diff = 0;
+        int cnt = 0;
+        int totalcnt = 0;
+        int k = 1;
+        
+        for(int i = 2; i < nums.size(); ++i) {
+            diff = nums[i] - nums[i-1];
+            if(diff == cdiff) {
+                cnt += k;
                 ++k;
-            }else{
-                dif=d;
-                tcnt+=cnt;
-                k=1; cnt=0;
+            } else {
+                totalcnt += cnt;
+                cnt = 0;
+                cdiff = diff;
+                k = 1;
             }
-            
         }
-        tcnt+=cnt;
-        return tcnt;
+        totalcnt += cnt;
+        return totalcnt;
     }
 };
