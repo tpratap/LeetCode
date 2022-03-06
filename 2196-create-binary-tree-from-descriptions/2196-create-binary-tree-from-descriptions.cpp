@@ -38,12 +38,11 @@ public:
         TreeNode* root = NULL;
        
         for(auto &node: mp) {
-            cout<<node.second.first->val<<" ";
             if(node.second.second == true) {
                 root = node.second.first; 
             }
         }
-        cout<<root->val<<" ";
+       
         return root;
     }
 };
