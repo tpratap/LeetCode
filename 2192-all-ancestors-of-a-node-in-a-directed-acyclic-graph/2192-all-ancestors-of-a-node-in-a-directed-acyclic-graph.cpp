@@ -1,75 +1,25 @@
 class Solution {
 public:
+    void dfs(vector<vector<int>> &graph,int i,int j,vector<vector<int>> &ans,vector<bool> &vis){
+        vis[j]=true;
+        for(auto &x:graph[j]){
+            if(!vis[x]){
+                ans[x].push_back(i);
+                dfs(graph,i,x,ans,vis);
+            }
+            
+        }
+    }
     vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
-        int m = edges.size();
         
-        vector<int> adj[n];
-        
-        vector<int> indegree(n, 0);
-    
-        for(int i=0; i<m; i++)
-        {
-            adj[edges[i][0]].push_back(edges[i][1]);
-            indegree[edges[i][1]]++;
+        vector<vector<int>> ans(n),graph(n);
+        for(auto &v:edges){
+            graph[v[0]].push_back(v[1]);
         }
-        
-        
-        queue<int> q;
-        
-        for(int i=0; i<n; i++)
-        {
-            if(indegree[i] == 0)
-            {
-                q.push(i);
-            }
+        for(int i=0;i<n;i++){
+            vector<bool> vis(n);
+            dfs(graph,i,i,ans,vis);
         }
-        
-        vector<unordered_set<int>> mp(n);
-        
-        while(!q.empty())
-        {
-            int  i = q.front();
-            q.pop();
-            
-            for(auto u : adj[i])
-            {
-                mp[u].insert(i);
-                
-                for(auto v : mp[i])
-                {
-                    mp[u].insert(v);
-                }
-                
-                
-                
-                indegree[u]--;
-                
-                if(indegree[u] == 0)
-                {
-                    q.push(u);
-                }
-            }
-            
-            
-        }
-        
-        vector<vector<int>> res;
-        
-        for(int i=0; i<n; i++)
-        {
-            vector<int> temp;
-            
-            for(auto v : mp[i])
-            {
-                temp.push_back(v);
-            }
-            
-            sort(temp.begin(), temp.end());
-            
-            res.push_back(temp);
-        }
-        
-        
-        return res;
+        return ans;
     }
 };
