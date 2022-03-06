@@ -1,15 +1,19 @@
 class Solution {
 public:
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
-        int dir[8][2] = {{-1, 0}, {0, -1}, {1, 0}, {0,1}, {-1, -1}, {1, 1}, {1, -1}, {-1,1}};
+        
         int n = grid.size();
+        
         if(grid[0][0] == 1 || grid[n-1][n-1] == 1)
             return -1;
-    
-        queue<pair<int, int>> q;
-        q.push({0, 0});
+        
+        int dir[8][2] = {{-1, 0}, {0, -1}, {1, 0}, {0,1}, {-1, -1}, {1, 1}, {1, -1}, {-1,1}};
         vector<vector<int>> dist(n, vector<int>(n, INT_MAX));
+        queue<pair<int, int>> q;
+        
+        q.push({0, 0});
         dist[0][0] = 1;
+        
         while(!q.empty()) {
             int i = q.front().first;
             int j = q.front().second;
