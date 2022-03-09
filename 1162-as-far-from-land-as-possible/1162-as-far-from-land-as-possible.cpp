@@ -1,11 +1,12 @@
 class Solution {
 public:
     int maxDistance(vector<vector<int>>& grid) {
-        int dir[4][2] = {{-1, 0},{0, -1},{0, 1},{1, 0}};
-        int n = grid.size();
-        int res = 0;
         
-        vector<vector<int>> dist(n, vector<int>(n , 0));
+        int dir[4][2] = {{-1, 0},{0, -1},{0, 1},{1, 0}}; 
+        
+        int n = grid.size();
+        
+        vector<vector<int>> dist(n, vector<int>(n , -1));
         
         queue<pair<int,int>> q;
         
@@ -14,40 +15,41 @@ public:
         for(int i=0; i < n; ++i){
             for(int j =0 ; j < n; ++j){
                 if(grid[i][j] == 1){
-                    zero = false;
+                    dist[i][j] = 0;
+                    zero = false; //If all the cells are ones, it will remain true
                     q.push({i, j});  
-                }else{
-                    ones = false;
-                    dist[i][j] = INT_MAX;
+                } else{
+                    ones = false; //If all the cells are ones, it will remain true 
                 }
             }
         }
         
-        if(zero || ones)
+        if(zero || ones) // If all cells only contains 0 or 1 then return -1 
             return -1;
+        
         while(!q.empty()){
-            int X = q.front().first;
-            int Y = q.front().second;
+            int i = q.front().first;
+            int j = q.front().second;
             q.pop();
-            for(int i =0 ; i < 4; ++i){
-                int dirX = X + dir[i][0];
-                int dirY = Y + dir[i][1];
-                if(dirX >= n || dirY >= n || dirY < 0 || dirX < 0)
-                    continue;
-                if(dist[X][Y] + 1 < dist[dirX][dirY]){
-                    if(grid[dirX][dirY] == 0){
-                        dist[dirX][dirY] = 1 + dist[X][Y];
-                        q.push({dirX, dirY});
+            for(int k =0 ; k < 4; ++k){
+                int x = i + dir[k][0];
+                int y = j + dir[k][1];
+                if(x >= 0 && y >= 0 && x < n && y < n) { //Valid Adjacent
+                    if(dist[x][y] == -1) { 
+                        if(grid[x][y] == 0) {        //Distance from 1 to 1 is always 0, so upadate 0 to 1 distance only
+                            dist[x][y] = 1 + dist[i][j];
+                            q.push({x, y});
+                        }
                     }
                 }
             }
-           
         }
-        res = -1;
+        
+        int res = -1;
         for(int i = 0; i <n; ++i){
             for(int j=0; j <n; ++j){
                 if(grid[i][j] == 0)
-                    res = max(res, dist[i][j]);
+                    res = max(res, dist[i][j]); //Find out the maximum distance
             }
         }
         return res;
