@@ -22,7 +22,8 @@ public:
                 int x = i + dir[k][0];
                 int y = j + dir[k][1];
                 if(x >= 0 && y >= 0 && x < m && y < n) {
-                    if(grid[x][y] == 1 && dist[x][y] > dist[i][j] + 1) {
+                    if(grid[x][y] == 1) {
+                        grid[x][y] = 2;
                         dist[x][y] = dist[i][j] + 1;
                         q.push({x, y});
                     }
