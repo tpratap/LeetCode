@@ -1,5 +1,5 @@
 class Solution {
-    int findLastOne(vector<int>& arr, int n) {
+    int findFirstZero(vector<int>& arr, int n) {
         int low = 0, high = n-1;
         while (low <= high) {
             int mid = (low + high) / 2;
@@ -19,7 +19,7 @@ public:
         int m = mat.size();
         int n = mat[0].size();
         for(int i = 0; i < m; ++i) {
-            int count = findLastOne(mat[i], n);
+            int count = findFirstZero(mat[i], n);
             pq.push({count, i});
             if(pq.size() > k)
                 pq.pop();
