@@ -11,6 +11,8 @@ public:
             return 1;        
         if (n == 1)
             return m;
+        if (m == 1)
+            return n;
         if (DP[n][m] != -1)
             return DP[n][m];
         
